@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "name": "review-files",
+  "description": "Review every input file concurrently",
+  "root": {
+    "type": "map",
+    "id": "review-all",
+    "items": {
+      "type": "workflow_input",
+      "key": "files"
+    },
+    "max_concurrency": 8,
+    "body": {
+      "type": "agent",
+      "id": "review-file",
+      "agent": "reviewer",
+      "prompt": "Review this file for correctness issues.",
+      "input": {
+        "type": "current_item"
+      }
+    }
+  }
+}
