@@ -3,14 +3,32 @@ name = "adk-dynamic-workflows"
 version = "0.1.0"
 description = "Model-generated, backend-neutral dynamic workflows for Google ADK"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "Manoj Mahalingam", email = "manojlds@gmail.com" }
 ]
 requires-python = ">=3.12"
+keywords = ["adk", "agents", "dynamic-workflows", "litellm", "temporal"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
     "google-adk>=2.0.0",
+    "litellm>=1.82.9",
     "pydantic>=2.12",
+    "python-dotenv>=1.2",
 ]
+
+[project.urls]
+Homepage = "https://github.com/manojlds/adk-dynamic-workflows"
+Repository = "https://github.com/manojlds/adk-dynamic-workflows"
+Issues = "https://github.com/manojlds/adk-dynamic-workflows/issues"
 
 [project.scripts]
 adk-dynamic-workflows = "adk_dynamic_workflows.cli:main"
@@ -18,6 +36,8 @@ adk-dynamic-workflows = "adk_dynamic_workflows.cli:main"
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+markers = ["integration: calls a real external model provider"]
+addopts = ["--strict-config", "--strict-markers", "-ra"]
 
 [tool.ruff]
 line-length = 88
