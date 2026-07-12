@@ -53,6 +53,7 @@ include = ["src", "tests"]
 
 [project.optional-dependencies]
 temporal = [
+    "mcp>=1.9.4,<2",
     "temporalio>=1.30.0",
 ]
 

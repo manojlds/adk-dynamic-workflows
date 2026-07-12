@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+- Verify Temporal 1.30's official plugin end to end with ADK 2.4.
+- Include the MCP dependency required by the plugin's eager imports.
+- Add a real Temporal server integration test.
+
 ## 0.1.0 - 2026-07-11
 
 - Add a validated, versioned workflow specification.

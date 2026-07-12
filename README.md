@@ -28,9 +28,11 @@ Install the Temporal adapter dependencies when needed:
 uv sync --extra temporal
 ```
 
-The official `temporalio[google-adk]` extra currently requires
-`google-adk<2`. This project therefore uses Temporal's core SDK and leaves the
-ADK 2 child-workflow implementation as the next integration milestone.
+Temporal 1.30 supports ADK 2 through `GoogleAdkPlugin` and `TemporalModel`.
+The released adapter imports its MCP integration eagerly, so this project's
+`temporal` extra also installs `mcp` even when a workflow does not use MCP
+tools. An end-to-end integration test runs ADK 2 against Temporal's ephemeral
+test server.
 
 ## Validate A Workflow
 
@@ -102,13 +104,24 @@ Run the real LiteLLM integration test after configuring `.env`:
 uv run pytest -m integration tests/integration/test_litellm_planner.py
 ```
 
+Run the ADK 2 and Temporal compatibility test:
+
+```bash
+TEMPORAL_ADDRESS=localhost:7233 \
+  uv run pytest -m integration tests/integration/test_temporal_adk2.py
+```
+
+Alternatively, set `TEMPORAL_USE_TEST_SERVER=1` to let the Temporal SDK
+download and start its ephemeral test server.
+
 With placeholder credentials the integration test is skipped. With configured
 credentials it performs a real provider request and verifies that the returned
 workflow is valid and uses only the requested agent profile.
 
 ## Next Milestones
 
-1. Implement an ADK 2-compatible Temporal child workflow for one agent run.
+1. Connect the generated-workflow interpreter to the official ADK 2 Temporal
+   plugin for durable agent child workflows.
 2. Add budget estimates, progress queries, and cancellation.
 3. Store large outputs as artifact references instead of workflow-history data.
 4. Add semantic validation for branch scope and step-output dominance.
